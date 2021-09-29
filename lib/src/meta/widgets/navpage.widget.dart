@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fumbaa/src/app/main/cart/pages/cart.page.dart';
 import 'package:fumbaa/src/app/main/home/pages/home.page.dart';
+import 'package:fumbaa/src/app/main/offers/pages/offers.page.dart';
+import 'package:fumbaa/src/app/main/orders/pages/order.page.dart';
+import 'package:fumbaa/src/app/main/profile/pages/profile.page.dart';
 import 'package:fumbaa/src/meta/meta.dart';
 
 class NavPage extends StatefulWidget {
@@ -18,9 +21,9 @@ class _NavPageState extends State<NavPage> {
 
   List<Widget> pageList = <Widget>[
     HomePage(),
-    Scaffold(),
-    Scaffold(),
-    Scaffold()
+    OffersPage(),
+    OrdersPage(),
+    ProfilePage()
   ];
 
   Color? getColor(int index) {
@@ -65,9 +68,8 @@ class _NavPageState extends State<NavPage> {
             setState(() {
               pageIndex = newValue;
             });
-            _controller.jumpToPage(
-              newValue,
-            );
+            _controller.animateToPage(newValue,
+                curve: Curves.easeInOut, duration: Duration(milliseconds: 300));
           },
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

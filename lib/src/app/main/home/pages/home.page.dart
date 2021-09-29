@@ -83,114 +83,102 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return products!.length == 0
-        ? Container(child: Center(child: Text("Loading")))
-        : Scaffold(
-            body: Container(
-                child: SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(height: 10),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 150,
-                      child: CarouselSlider.builder(
-                          itemCount: 3,
-                          itemBuilder: (context, index, _) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(7),
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      child: Image.network(
-                                          carouselImages[index],
-                                          fit: BoxFit.cover))),
-                            );
-                          },
-                          options: CarouselOptions(
-                              onPageChanged: changeCurrentPage,
-                              enableInfiniteScroll: false,
-                              viewportFraction: 1)),
-                    ),
-                    Container(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        AnimatedSmoothIndicator(
-                            effect: ScrollingDotsEffect(
-                                activeDotColor: AppColors.mainColor,
-                                dotHeight: 3),
-                            activeIndex: currentPage,
-                            count: 3),
-                      ],
-                    ),
-                    Container(height: 30),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                          height: 130,
-                          child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 4,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisSpacing: 10,
-                                      mainAxisExtent: 130 / 2.2,
-                                      mainAxisSpacing: 10,
-                                      crossAxisCount: 2),
-                              itemBuilder: (context, index) {
-                                return ClipRRect(
-                                    borderRadius: BorderRadius.circular(7),
-                                    child: Container(
-                                        child: Row(
-                                          children: [
-                                            Container(
-                                                width: 50,
-                                                height: 130 / 2.2,
-                                                child: Image.network(
-                                                    products![0].image)),
-                                            Text(names[index],
-                                                style: TextStyle(
-                                                    fontFamily: AppFonts.Medium,
-                                                    fontSize: 14.5,
-                                                    color:
-                                                        index == 0 || index == 3
-                                                            ? Colors.black
-                                                            : Colors.black)),
-                                          ],
-                                        ),
-                                        color: index == 0 || index == 3
-                                            ? Colors.white
-                                            : Colors.white));
-                              })),
-                    ),
-                    Container(height: 20),
-                    headerTitle("Trending"),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                          child: GridView.builder(
-                              itemCount: products!.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      mainAxisExtent: 240, crossAxisCount: 2),
-                              itemBuilder: (context, index) {
-                                return TrendingWidget(model: products![index]);
-                              })),
-                    )
-                  ]),
-            )),
-            appBar: AppBar(
-                elevation: 0,
-                backgroundColor: AppColors.backgroundColor,
-                centerTitle: true,
-                title: Image.asset(AppImages.appLogo, height: 80)),
-          );
+    return Scaffold(
+      body: Container(
+          child: SingleChildScrollView(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Container(height: 10),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            child: CarouselSlider.builder(
+                itemCount: 3,
+                itemBuilder: (context, index, _) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.network(carouselImages[index],
+                                fit: BoxFit.cover))),
+                  );
+                },
+                options: CarouselOptions(
+                    enlargeCenterPage: true,
+                    onPageChanged: changeCurrentPage,
+                    enableInfiniteScroll: false,
+                    viewportFraction: 1)),
+          ),
+          Container(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedSmoothIndicator(
+                  effect: ScrollingDotsEffect(
+                      activeDotColor: AppColors.mainColor, dotHeight: 3),
+                  activeIndex: currentPage,
+                  count: 3),
+            ],
+          ),
+          Container(height: 30),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+                height: 130,
+                child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: 4,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 10,
+                        mainAxisExtent: 130 / 2.2,
+                        mainAxisSpacing: 10,
+                        crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      return ClipRRect(
+                          borderRadius: BorderRadius.circular(7),
+                          child: Container(
+                            //   elevation: 1,
+                            color: AppColors.lightColor,
+                            child: Row(
+                              children: [
+                                Container(
+                                    width: 50,
+                                    height: 130 / 2.2,
+                                    child: Image.network(products![0].image)),
+                                Text(names[index],
+                                    style: TextStyle(
+                                        fontFamily: AppFonts.Medium,
+                                        fontSize: 14.5,
+                                        color: Colors.black)),
+                              ],
+                            ),
+                          ));
+                    })),
+          ),
+          Container(height: 20),
+          headerTitle("Trending"),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Container(
+                child: GridView.builder(
+                    itemCount: products!.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        mainAxisExtent: 240, crossAxisCount: 2),
+                    itemBuilder: (context, index) {
+                      return TrendingWidget(model: products![index]);
+                    })),
+          )
+        ]),
+      )),
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppColors.backgroundColor,
+          centerTitle: true,
+          title: Image.asset(AppImages.appLogo, height: 80)),
+    );
   }
 }
 
@@ -213,11 +201,13 @@ class TrendingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(7),
-          ),
+      child: Material(
+          elevation: 1,
+          borderRadius: BorderRadius.circular(7),
+          // decoration: BoxDecoration(
+          //   color: Colors.white,
+          //   borderRadius: BorderRadius.circular(7),
+          // ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -233,29 +223,38 @@ class TrendingWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0),
-              child: Text(model.type),
+              child: Container(
+                  height: 15,
+                  width: 50,
+                  decoration: BoxDecoration(
+                      color: AppColors.lightColor,
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Center(
+                    child: Text(model.type,
+                        style: TextStyle(color: Colors.black, fontSize: 11)),
+                  )),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15.0),
+              padding: const EdgeInsets.only(left: 15.0, top: 3),
               child: Text("UGX ${model.price}"),
             ),
             Container(height: 5),
             Padding(
-                padding: const EdgeInsets.only(right: 25.0,left : 15),
+                padding: const EdgeInsets.only(right: 25.0, left: 15),
                 child: new Bouncing(
                   onPress: () {},
                   child: new Container(
-                    height: 35.0,
+                    height: 30.0,
                     decoration: new BoxDecoration(
                         color: AppColors.mainColor,
                         borderRadius:
-                            new BorderRadius.all(Radius.circular(6.0))),
+                            new BorderRadius.all(Radius.circular(24.0))),
                     child: new Center(
                       child: new Text(
                         'Order Now',
                         style: new TextStyle(
                             color: Colors.white,
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             fontFamily: AppFonts.Medium),
                       ),
                     ),
